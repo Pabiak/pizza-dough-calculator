@@ -1,5 +1,5 @@
 {
-  "name": "react-skeleton",
+  "name": "pizza-dough-calculator",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -13,10 +13,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.75.6",
-    "@tanstack/react-query-devtools": "^5.75.6",
-    "axios": "^1.9.0",
-    "axios-auth-refresh": "^3.3.6",
     "clsx": "^2.1.1",
     "i18next": "^25.1.2",
     "i18next-browser-languagedetector": "^8.1.0",
