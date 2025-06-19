@@ -1,0 +1,76 @@
+{
+  "name": "react-skeleton",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "generate-pwa-assets": "pwa-assets-generator --preset minimal public/logo.svg",
+    "precommit": "lint-staged",
+    "preview": "vite preview",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.75.6",
+    "@tanstack/react-query-devtools": "^5.75.6",
+    "axios": "^1.9.0",
+    "axios-auth-refresh": "^3.3.6",
+    "clsx": "^2.1.1",
+    "i18next": "^25.1.2",
+    "i18next-browser-languagedetector": "^8.1.0",
+    "i18next-http-backend": "^3.0.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-i18next": "^15.5.1",
+    "react-router-dom": "^7.6.0",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": "^4.1.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@tailwindcss/postcss": "^4.1.5",
+    "@tailwindcss/vite": "^4.1.5",
+    "@types/node": "^20.17.46",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "@vitejs/plugin-react-swc": "^3.6.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.4.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "husky": "^9.0.10",
+    "lint-staged": "^15.2.1",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-pwa": "^0.20.1",
+    "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "lint-staged": {
+    "*.{js,css,ts,tsx,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm precommit"
+    }
+  }
+}
