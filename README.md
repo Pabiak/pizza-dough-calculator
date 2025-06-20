@@ -1,1 +1,1 @@
-# React Skeleton by Pabiak
+# Pizza dough calculator
