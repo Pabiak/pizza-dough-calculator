@@ -16,3 +16,20 @@ body {
   --placeholder: #994d4d;
   --border: #e8cfcf;
 }
+
+/* Animation keyframes */
+@keyframes raiseFromCenter {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+    transform-origin: center;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.raise-from-center {
+  animation: raiseFromCenter 0.2s linear;
+}
