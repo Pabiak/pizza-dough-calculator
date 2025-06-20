@@ -90,7 +90,7 @@ const RecipesPage = () => {
                   <span className="text-[var(--text)] text-center">
                     {
                       recipe.parameters.find(
-                        (param: IParameter) => param.name === "Waga Porcji",
+                        (param: IParameter) => param.name === "Waga porcji",
                       )?.value
                     }
                   </span>

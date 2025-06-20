@@ -66,7 +66,7 @@ const CalculatorPage = () => {
       })),
       parameters: [
         { name: "Liczba porcji", value: data.portions.toString() },
-        { name: "Waga Porcji", value: data.weight.toString() },
+        { name: "Waga porcji", value: data.weight.toString() },
         { name: "Hydracja", value: `${data.hydration} %` },
         { name: "Czas całkowity", value: `${data.totalTime} h` },
         { name: "Czas w lodówce", value: `${data.fridgeTime} h` },
