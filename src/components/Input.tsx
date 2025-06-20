@@ -6,9 +6,10 @@ interface IInputProps {
   placeholder?: string;
   name: string;
   value?: string;
+  inputMode?: "numeric" | "text";
 }
 
-const Input = ({ onChange, label, placeholder, name, value }: IInputProps) => {
+const Input = ({ onChange, label, placeholder, name, value, inputMode = "numeric" }: IInputProps) => {
   return (
     <label htmlFor={name} className="flex flex-col gap-2 justify-center">
       <span
@@ -20,7 +21,7 @@ const Input = ({ onChange, label, placeholder, name, value }: IInputProps) => {
       <input
         value={value}
         type="text"
-        inputMode="numeric"
+        inputMode={inputMode}
         placeholder={placeholder}
         name={name}
         onChange={onChange}

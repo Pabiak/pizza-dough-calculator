@@ -84,7 +84,7 @@ const CalculatorPage = () => {
 
   return (
     <PageTransition>
-      <div className="flex flex-col gap-3 mb-[4.25rem]">
+      <div className="flex flex-col gap-3 mb-[8.5rem]">
         <h1 className="font-bold text-lg text-[var(--text)] my-5 text-center tracking-normal leading-none">
           Kalkulator pizzy
         </h1>
@@ -156,6 +156,7 @@ const CalculatorPage = () => {
         </section>
         <section className="w-full flex flex-col gap-4">
           <Input
+            inputMode="text"
             label="Nazwa przepisu do zapisu"
             name="recipeName"
             onChange={handleChange}
