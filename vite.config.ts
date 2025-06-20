@@ -18,8 +18,8 @@ export default defineConfig(({ mode }) => {
         registerType: "autoUpdate",
         includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
         manifest: {
-          theme_color: "#fff",
-          background_color: "#fff",
+          theme_color: "#ed2626",
+          background_color: "#fcf7f7",
           icons: [
             {
               src: "pwa-64x64.png",
@@ -44,24 +44,10 @@ export default defineConfig(({ mode }) => {
               purpose: "maskable",
             },
           ],
-          screenshots: [
-            {
-              src: "screenshots/mobile-screenshot.png",
-              sizes: "430x932",
-              type: "image/png",
-              form_factor: "narrow",
-            },
-            {
-              src: "screenshots/desktop-screenshot.png",
-              sizes: "1920x1080",
-              type: "image/png",
-              form_factor: "wide",
-            },
-          ],
-          name: "React Skeleton",
-          short_name: "React Skeleton",
-          start_url: "https://appURL.pl",
-          scope: "https://appURL.pl",
+          name: "Pabiak's Pizza Calculator",
+          short_name: "Pizza Calculator",
+          start_url: "/",
+          scope: "/",
         },
       }),
     ],

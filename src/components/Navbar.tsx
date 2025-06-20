@@ -12,7 +12,7 @@ const Navbar = () => {
   const splitLocation = pathname.split("/")[1];
 
   return (
-    <nav className="flex items-center justify-between px-6 py-2 bg-[var(--background)] fixed bottom-0 left-0 w-full border-t border-[var(--border)]">
+    <nav className="flex items-center justify-between px-6 py-2 bg-[var(--background)] fixed bottom-0 left-0 w-full border-t border-[var(--border)] z-50">
       <button
         className={cn(
           "flex flex-col items-center justify-center gap-1 w-[50%] transition-colors duration-200",
