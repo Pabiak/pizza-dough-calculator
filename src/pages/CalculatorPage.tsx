@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import calculateDough from "@/utils/calculateDough";
-import IDoughData from "@/types/DoughData";
+import IDoughData from "@/types/doughData";
 import getFormattedDate from "@/helpers/formatDate";
 
 import Input from "@/components/Input";
