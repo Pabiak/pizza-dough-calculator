@@ -3,6 +3,9 @@
 html,
 body {
   background-color: #fcf7f7;
+  /* remove scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
 :root {

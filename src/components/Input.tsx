@@ -24,6 +24,7 @@ const Input = ({ onChange, label, placeholder, name, value }: IInputProps) => {
         placeholder={placeholder}
         name={name}
         onChange={onChange}
+        min={0}
         aria-placeholder={placeholder}
         aria-label={label}
         aria-labelledby="label"

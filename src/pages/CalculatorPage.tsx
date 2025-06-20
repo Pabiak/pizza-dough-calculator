@@ -1,13 +1,17 @@
+import React, { useState } from "react";
+
+import calculateDough from "@/utils/calculateDough";
+import IDoughData from "@/types/doughData";
+
 import Input from "@/components/Input";
-import React, { useEffect, useState } from "react";
 
 const CalculatorPage = () => {
-  const [data, setData] = useState({
+  const [data, setData] = useState<IDoughData>({
     portions: 2,
     weight: 250,
     hydration: 60,
-    salt: 50,
-    fat: 0,
+    saltPerLiter: 50,
+    fatPerLiter: 0,
     totalTime: 24,
     fridgeTime: 12,
     roomTemperature: 20,
@@ -16,18 +20,44 @@ const CalculatorPage = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    if (name === "recipeName") {
+      setData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+      return;
+    }
+
+    const numericValue = Number(value);
+
+    if (isNaN(numericValue)) return;
+
     setData((prevData) => ({
       ...prevData,
-      [name]: Number(value),
+      [name]: numericValue,
     }));
   };
 
-  useEffect(() => {
-    console.log("Data changed:", data);
-  }, [data]);
+  const doughParameters = calculateDough(data);
+
+  const results = [
+    { label: "Mąka", value: doughParameters.flourAmount },
+    { label: "Woda", value: doughParameters.waterAmount },
+    { label: "Sól", value: doughParameters.saltAmount },
+    { label: "Drożdże świeże", value: doughParameters.yeastAmount },
+    { label: "Oliwa", value: doughParameters.fatAmount },
+  ];
+
+  const handleSave = () => {
+    console.log("Zapisz przepis:", {
+      name: data.recipeName,
+      ...doughParameters,
+    });
+  };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 mb-[4.25rem]">
       <h1 className="font-bold text-lg text-[var(--text)] my-5 text-center tracking-normal leading-none">
         Kalkulator pizzy
       </h1>
@@ -52,15 +82,15 @@ const CalculatorPage = () => {
         />
         <Input
           label="Sól (g)"
-          name="salt"
+          name="saltPerLiter"
           onChange={handleChange}
-          value={data.salt.toString()}
+          value={data.saltPerLiter.toString()}
         />
         <Input
           label="Tłuszcz (g)"
-          name="fat"
+          name="fatPerLiter"
           onChange={handleChange}
-          value={data.fat.toString()}
+          value={data.fatPerLiter.toString()}
         />
         <Input
           label="Czas całkowity (h)"
@@ -85,28 +115,16 @@ const CalculatorPage = () => {
         <h2 className="text-[var(--text)] font-bold text-xl tracking-normal leading-none">
           Parametry Ciasta
         </h2>
-        <ul>
-          <li className="text-[var(--placeholder)] text-sm leading-mone block">
-            Waga ciasta: {data.weight * data.portions} g
-          </li>
-          <li className="text-[var(--placeholder)] text-sm leading-mone">
-            Hydracja: {data.hydration}%
-          </li>
-          <li className="text-[var(--placeholder)] text-sm leading-mone">
-            Sól: {data.salt} g
-          </li>
-          <li className="text-[var(--placeholder)] text-sm leading-mone">
-            Tłuszcz: {data.fat} g
-          </li>
-          <li className="text-[var(--placeholder)] text-sm leading-mone">
-            Czas całkowity: {data.totalTime} h
-          </li>
-          <li className="text-[var(--placeholder)] text-sm leading-mone">
-            Czas w lodówce: {data.fridgeTime} h
-          </li>
-          <li className="text-[var(--placeholder)] text-sm leading-mone">
-            Temperatura: {data.roomTemperature} °C
-          </li>
+        <ul className="flex flex-col py-3">
+          {results.map(({ label, value }) => (
+            <li
+              key={label}
+              className="text-[var(--placeholder)] text-sm leading-none border-t border-[var(--border)] py-3 flex justify-between"
+            >
+              <span>{label}:</span>
+              <span>{value} g</span>
+            </li>
+          ))}
         </ul>
       </section>
       <section className="w-full flex flex-col gap-4">
@@ -115,7 +133,10 @@ const CalculatorPage = () => {
           name="recipeName"
           onChange={handleChange}
         />
-        <button className="w-full h-12 bg-[var(--primary)] rounded-3xl text-[var(--background)]">
+        <button
+          onClick={handleSave}
+          className="w-full h-12 bg-[var(--primary)] rounded-3xl text-[var(--background)]"
+        >
           Zapisz przepis
         </button>
       </section>
