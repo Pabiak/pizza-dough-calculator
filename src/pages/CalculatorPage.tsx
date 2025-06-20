@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import calculateDough from "@/utils/calculateDough";
-import IDoughData from "@/types/doughData";
+import IDoughData from "@/types/DoughData";
+import getFormattedDate from "@/helpers/formatDate";
 
 import Input from "@/components/Input";
 
 const CalculatorPage = () => {
+  const navigate = useNavigate();
+
   const [data, setData] = useState<IDoughData>({
     portions: 2,
     weight: 250,
@@ -50,10 +55,30 @@ const CalculatorPage = () => {
   ];
 
   const handleSave = () => {
-    console.log("Zapisz przepis:", {
+    const savedRecipe = {
+      id: crypto.randomUUID(),
       name: data.recipeName,
-      ...doughParameters,
-    });
+      createdAt: getFormattedDate(new Date()),
+      ingredients: results.map((item) => ({
+        name: item.label,
+        amount: `${item.value} g`,
+      })),
+      parameters: [
+        { name: "Liczba porcji", value: data.portions.toString() },
+        { name: "Waga Porcji", value: data.weight.toString() },
+        { name: "Hydracja", value: `${data.hydration} %` },
+        { name: "Czas całkowity", value: `${data.totalTime} h` },
+        { name: "Czas w lodówce", value: `${data.fridgeTime} h` },
+        { name: "Temperatura", value: `${data.roomTemperature} °C` },
+      ],
+    };
+    console.log("Zapisany przepis:", savedRecipe);
+    // save to a local storage
+    const recipes = JSON.parse(localStorage.getItem("recipes") || "[]");
+    recipes.push(savedRecipe);
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+
+    navigate("/przepisy");
   };
 
   return (

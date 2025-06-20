@@ -1,5 +1,7 @@
 import { createPortal } from "react-dom";
 
+import { IIngredient, IParameter, IRecipe } from "@/types/Recipe";
+
 import CloseIcon from "@/assets/close.svg?react";
 
 interface IModalProps {
@@ -10,24 +12,6 @@ interface IModalProps {
   recipe: IRecipe | null;
 }
 
-interface IIngredient {
-  name: string;
-  amount: string;
-}
-
-interface IParameter {
-  name: string;
-  value: string;
-}
-
-export interface IRecipe {
-  id: string;
-  name: string;
-  createdAt: string;
-  ingredients: Array<IIngredient>;
-  parameters: Array<IParameter>;
-}
-
 const Modal = ({
   name,
   onClose,
@@ -36,19 +20,21 @@ const Modal = ({
   onRecipeDelete,
 }: IModalProps) => {
   if (!isOpen) return null;
+  if (!recipe) return null;
 
   const handleDelete = () => {
     if (!recipe.id) return;
-    onClose();
     onRecipeDelete(recipe.id);
   };
 
   return createPortal(
-    <button
+    <div
       className="fixed inset-0 z-40 transition-opacity duration-[.4s] w-full flex items-center justify-center p-6 backdrop-blur-xs bg-gray-400/70"
       onClick={onClose || undefined}
+      onKeyDown={onClose || undefined}
       data-name={name}
       role="dialog"
+      aria-modal="true"
     >
       <div
         role="button"
@@ -69,7 +55,7 @@ const Modal = ({
           </button>
         </header>
         <div className="p-4">
-          <h3 className="text-md font-semibold text-[var(--text)]">
+          <h3 className="text-md font-semibold text-[var(--text)] text-center">
             Składniki
           </h3>
           <ul className="space-y-2">
@@ -85,7 +71,7 @@ const Modal = ({
               </li>
             ))}
           </ul>
-          <h3 className="mt-4 text-md font-semibold text-[var(--text)]">
+          <h3 className="mt-4 text-md font-semibold text-[var(--text)] text-center">
             Parametry
           </h3>
           <ul className="space-y-2 mt-2">
@@ -108,7 +94,7 @@ const Modal = ({
           </button>
         </footer>
       </div>
-    </button>,
+    </div>,
     document.body,
   );
 };

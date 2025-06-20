@@ -1,54 +1,16 @@
-import getFormattedDate from "@/helpers/formatDate";
-import PizzaImg from "@/assets/pizza.png";
-import Modal, { IRecipe } from "@/components/Modal";
 import { useState } from "react";
 
-const RecipesPage = () => {
-  const exampleRecipes = [
-    {
-      id: crypto.randomUUID(),
-      name: "przepis1",
-      createdAt: "2023-10-01",
-      ingredients: [
-        { name: "Mąka", amount: "500g" },
-        { name: "Woda", amount: "300ml" },
-        { name: "Sól", amount: "10g" },
-        { name: "Drożdże świeże", amount: "5g" },
-        { name: "Oliwa", amount: "20g" },
-      ],
-      parameters: [
-        { name: "Liczba porcji", value: "2" },
-        { name: "Waga Porcji", value: "250g" },
-        { name: "Hydracja", value: "60%" },
-        { name: "Czas całkowity", value: "24h" },
-        { name: "Czas w temperaturze pokojowej", value: "2h" },
-        { name: "Czas w lodówce", value: "12h" },
-      ],
-    },
-    {
-      id: crypto.randomUUID(),
-      name: "przepis2",
-      createdAt: "2023-10-02",
-      ingredients: [
-        { name: "Mąka", amount: "600g" },
-        { name: "Woda", amount: "350ml" },
-        { name: "Sól", amount: "12g" },
-        { name: "Drożdże świeże", amount: "6g" },
-        { name: "Oliwa", amount: "25g" },
-      ],
-      parameters: [
-        { name: "Liczba porcji", value: "2" },
-        { name: "Waga Porcji", value: "250g" },
-        { name: "Hydracja", value: "60%" },
-        { name: "Czas całkowity", value: "24h" },
-        { name: "Czas w temperaturze pokojowej", value: "2h" },
-        { name: "Czas w lodówce", value: "12h" },
-      ],
-    },
-  ];
+import { IParameter, IRecipe } from "@/types/Recipe";
 
+import Modal from "@/components/Modal";
+
+import PizzaImg from "@/assets/pizza.png";
+
+const RecipesPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe | null>(null);
+
+  const recipes = JSON.parse(localStorage.getItem("recipes") || "[]");
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -61,8 +23,15 @@ const RecipesPage = () => {
   };
 
   const handleDeleteRecipe = (recipeId: string) => {
-    // Implement the logic to delete the recipe by its ID
-    console.log(`Deleting recipe with ID: ${recipeId}`);
+    if (!recipeId) return;
+
+    const updatedRecipes = recipes.filter(
+      (recipe: IRecipe) => recipe.id !== recipeId,
+    );
+
+    localStorage.setItem("recipes", JSON.stringify(updatedRecipes));
+    setSelectedRecipe(null);
+    setIsOpen(false);
   };
 
   return (
@@ -77,7 +46,7 @@ const RecipesPage = () => {
         recipe={selectedRecipe}
         onRecipeDelete={handleDeleteRecipe}
       />
-      {exampleRecipes.map((recipe) => (
+      {recipes.map((recipe: IRecipe) => (
         <button
           onClick={() => handleOpenModal(recipe)}
           type="button"
@@ -93,7 +62,7 @@ const RecipesPage = () => {
             />
           </figure>
           <p className="absolute top-[12px] right-[12px] text-sm text-gray-600 mb-2">
-            {getFormattedDate(new Date(recipe.createdAt))}
+            {recipe.createdAt}
           </p>
           <div className="flex flex-col justify-center">
             <h2 className="font-bold text-lg text-[var(--text)]">
@@ -107,7 +76,7 @@ const RecipesPage = () => {
                 <span className="text-[var(--text)] text-center">
                   {
                     recipe.parameters.find(
-                      (param) => param.name === "Liczba porcji",
+                      (param: IParameter) => param.name === "Liczba porcji",
                     )?.value
                   }
                 </span>
@@ -119,7 +88,7 @@ const RecipesPage = () => {
                 <span className="text-[var(--text)] text-center">
                   {
                     recipe.parameters.find(
-                      (param) => param.name === "Waga Porcji",
+                      (param: IParameter) => param.name === "Waga Porcji",
                     )?.value
                   }
                 </span>
@@ -130,8 +99,9 @@ const RecipesPage = () => {
                 </span>
                 <span className="text-[var(--text)] text-center">
                   {
-                    recipe.parameters.find((param) => param.name === "Hydracja")
-                      ?.value
+                    recipe.parameters.find(
+                      (param: IParameter) => param.name === "Hydracja",
+                    )?.value
                   }
                 </span>
               </li>
