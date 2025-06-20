@@ -28,7 +28,7 @@ const CalculatorPage = () => {
     const { name, value } = e.target;
 
     if (name === "recipeName") {
-      setData((prevData) => ({
+      setData((prevData: IDoughData) => ({
         ...prevData,
         [name]: value,
       }));
@@ -39,7 +39,7 @@ const CalculatorPage = () => {
 
     if (isNaN(numericValue)) return;
 
-    setData((prevData) => ({
+    setData((prevData: IDoughData) => ({
       ...prevData,
       [name]: numericValue,
     }));
