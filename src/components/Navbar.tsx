@@ -23,7 +23,7 @@ const Navbar = () => {
         onClick={() => navigate("/")}
       >
         <CalcualtorIcon />
-        <span className="text-xs ">Kalkulator</span>
+        <span className="text-xs">Kalkulator</span>
       </button>
       <button
         className={cn(

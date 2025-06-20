@@ -4,7 +4,7 @@ import { IParameter, IRecipe } from "@/types/Recipe";
 
 import Modal from "@/components/Modal";
 
-import PizzaImg from "@/assets/pizza.png";
+import PizzaImg from "/pizza.png";
 import PageTransition from "@/components/PageTransition";
 
 const RecipesPage = () => {

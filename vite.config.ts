@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
       svgr(),
       VitePWA({
         registerType: "autoUpdate",
-        includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
+        includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg", "pizza.png"],
         manifest: {
           theme_color: "#ed2626",
           background_color: "#fcf7f7",
