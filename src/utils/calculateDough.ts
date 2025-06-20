@@ -1,4 +1,4 @@
-import IDoughData from "@/types/DoughData";
+import IDoughData from "@/types/doughData";
 
 const calculateDough = (data: IDoughData) => {
   const {
